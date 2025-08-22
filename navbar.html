@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fully Animated Navbar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInLeft 1s ease-out 0.2s both;
+        }
+
+        .logo:hover {
+            transform: scale(1.1) rotate(5deg);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 400% 400%;
+            border-radius: 50%;
+            margin-right: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 400% 400%;
+            border-radius: 50%;
+            z-index: -1;
+            animation: gradientShift 3s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .logo:hover .logo-icon::before {
+            opacity: 1;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            position: relative;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .nav-item:nth-child(1) { animation-delay: 0.3s; }
+        .nav-item:nth-child(2) { animation-delay: 0.4s; }
+        .nav-item:nth-child(3) { animation-delay: 0.5s; }
+        .nav-item:nth-child(4) { animation-delay: 0.6s; }
+        .nav-item:nth-child(5) { animation-delay: 0.7s; }
+        .nav-item:nth-child(6) { animation-delay: 0.8s; }
+        .nav-item:nth-child(7) { animation-delay: 0.9s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px) scale(0.9);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 220px;
+            margin-top: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            margin: 0.3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .dropdown-item:hover::before {
+            left: 100%;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .dropdown-arrow {
+            font-size: 0.8rem;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .social-media {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            animation: fadeInRight 1s ease-out 1s both;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.2) rotate(10deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-link:hover::before {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .facebook:hover::before { background: #3b5998; }
+        .linkedin:hover::before { background: #0077b5; }
+        .instagram:hover::before { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            animation: fadeInRight 1s ease-out 0.5s both;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: white;
+            margin: 4px 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 3px;
+            transform-origin: center;
+        }
+
+        .hamburger:hover span {
+            background: #feca57;
+            box-shadow: 0 0 10px rgba(254, 202, 87, 0.5);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 6rem 2rem 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-nav-item {
+            margin: 1.5rem 0;
+            transform: translateX(-50px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active .mobile-nav-item {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .mobile-menu.active .mobile-nav-item:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.active .mobile-nav-item:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu.active .mobile-nav-item:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu.active .mobile-nav-item:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu.active .mobile-nav-item:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-menu.active .mobile-nav-item:nth-child(6) { transition-delay: 0.6s; }
+        .mobile-menu.active .mobile-nav-item:nth-child(7) { transition-delay: 0.7s; }
+
+        .mobile-nav-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: block;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .mobile-nav-link:hover::before {
+            left: 100%;
+        }
+
+        .mobile-nav-link:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            transform: translateX(15px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .mobile-dropdown-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 15px;
+            margin: 0.5rem 0 0 1rem;
+        }
+
+        .mobile-dropdown-menu.active {
+            max-height: 400px;
+        }
+
+        .mobile-social {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active .mobile-social {
+            transform: translateY(0);
+            opacity: 1;
+            transition-delay: 0.8s;
+        }
+
+        /* Pulse animation for special elements */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .navbar:hover .logo-icon {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu,
+            .social-media {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.6rem;
+            }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .mobile-nav-link {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">L</div>
+                Logo
+            </a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">
+                        Home
+                        <span class="dropdown-arrow">&#9662;</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Main Home</a>
+                        <a href="#" class="dropdown-item">About Us</a>
+                        <a href="#" class="dropdown-item">Our Team</a>
+                        <a href="#" class="dropdown-item">Testimonials</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">
+                        Services
+                        <span class="dropdown-arrow">&#9662;</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Web Development</a>
+                        <a href="#" class="dropdown-item">Mobile Apps</a>
+                        <a href="#" class="dropdown-item">UI/UX Design</a>
+                        <a href="#" class="dropdown-item">Digital Marketing</a>
+                        <a href="#" class="dropdown-item">Consulting</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Career</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
+
+            <div class="social-media">
+                <a href="#" class="social-link facebook" title="Facebook">📘</a>
+                <a href="#" class="social-link linkedin" title="LinkedIn">💼</a>
+                <a href="#" class="social-link instagram" title="Instagram">📷</a>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link" onclick="toggleMobileDropdown(event)">
+                    Home &#9662;
+                </a>
+                <div class="mobile-dropdown-menu">
+                    <a href="#" class="mobile-nav-link">Main Home</a>
+                    <a href="#" class="mobile-nav-link">About Us</a>
+                    <a href="#" class="mobile-nav-link">Our Team</a>
+                    <a href="#" class="mobile-nav-link">Testimonials</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">About</a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link" onclick="toggleMobileDropdown(event)">
+                    Services &#9662;
+                </a>
+                <div class="mobile-dropdown-menu" id="mobile-dropdown">
+                    <a href="#" class="mobile-nav-link">Web Development</a>
+                    <a href="#" class="mobile-nav-link">Mobile Apps</a>
+                    <a href="#" class="mobile-nav-link">UI/UX Design</a>
+                    <a href="#" class="mobile-nav-link">Digital Marketing</a>
+                    <a href="#" class="mobile-nav-link">Consulting</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">Portfolio</a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">Career</a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">Events</a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">Contact</a>
+            </div>
+            
+            <div class="mobile-social">
+                <a href="#" class="social-link facebook" title="Facebook">📘</a>
+                <a href="#" class="social-link linkedin" title="LinkedIn">💼</a>
+                <a href="#" class="social-link instagram" title="Instagram">📷</a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Hamburger menu toggle with animations
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scrolling when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!link.textContent.includes('Services')) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Mobile dropdown toggle
+        function toggleMobileDropdown(event) {
+            event.preventDefault();
+            const dropdown = document.getElementById('mobile-dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const navbar = document.querySelector('.navbar');
+            const isClickInsideNav = navbar.contains(event.target);
+            
+            if (!isClickInsideNav && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Enhanced hover effects for desktop nav items
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Logo animation on click
+        const logo = document.querySelector('.logo');
+        logo.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(0.9) rotate(360deg)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            }, 300);
+        });
+
+        // Social links animation
+        const socialLinks = document.querySelectorAll('.social-link');
+        socialLinks.forEach((link, index) => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(0.8) rotate(360deg)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                }, 400);
+            });
+        });
+
+        // Add shimmer effect to navbar on load
+        setTimeout(() => {
+            const navbar = document.querySelector('.navbar');
+            navbar.style.background = 'rgba(255, 255, 255, 0.15)';
+            setTimeout(() => {
+                navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+            }, 1000);
+        }, 2000);
+    </script>
+</body>
+</html>

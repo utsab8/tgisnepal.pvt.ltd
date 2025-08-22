@@ -1,0 +1,2488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Services - TGIS</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-dark: #047857;
+            --primary-light: #10b981;
+            --accent: #34d399;
+            --accent-dark: #059669;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --background: #ffffff;
+            --background-light: #f8fafc;
+            --background-dark: #1e293b;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-hover: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            background: var(--background);
+        }
+
+        /* Hero Section with Video Background */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--gradient);
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(5, 150, 105, 0.85) 0%, 
+                rgba(16, 185, 129, 0.75) 50%,
+                rgba(52, 211, 153, 0.65) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 1000px;
+            padding: 0 2rem;
+            animation: heroFadeIn 1.5s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffffff, #f0fdf4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            z-index: 3;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--background-light) 0%, white 100%);
+            position: relative;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310b981' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            position: relative;
+            height: 500px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .service-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            border-radius: 24px;
+        }
+
+        .service-card.flipped .service-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .service-front,
+        .service-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 24px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .service-front {
+            background: white;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .service-front {
+            box-shadow: 0 30px 60px -12px rgba(5, 150, 105, 0.25);
+            transform: translateY(-10px);
+        }
+
+        .service-back {
+            background: var(--gradient);
+            color: white;
+            transform: rotateY(180deg);
+            overflow-y: auto;
+        }
+
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(5, 150, 105, 0.3);
+        }
+
+        .service-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .service-card:hover .service-icon::before {
+            transform: rotate(45deg) translate(100%, 100%);
+        }
+
+        .service-icon i {
+            font-size: 2.5rem;
+            color: white;
+            z-index: 1;
+        }
+
+        .service-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .service-back .service-title {
+            color: white;
+        }
+
+        .service-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .service-back .service-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .service-features {
+            list-style: none;
+            text-align: left;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            padding: 0.75rem 0;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+
+        .service-card.flipped .service-features li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .service-card.flipped .service-features li:nth-child(1) { transition-delay: 0.1s; }
+        .service-card.flipped .service-features li:nth-child(2) { transition-delay: 0.2s; }
+        .service-card.flipped .service-features li:nth-child(3) { transition-delay: 0.3s; }
+        .service-card.flipped .service-features li:nth-child(4) { transition-delay: 0.4s; }
+        .service-card.flipped .service-features li:nth-child(5) { transition-delay: 0.5s; }
+
+        .service-features li i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            min-width: 24px;
+        }
+
+        .service-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3);
+        }
+
+        .service-btn:hover {
+            background: var(--gradient-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(5, 150, 105, 0.4);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .close-btn i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        @keyframes heroFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @keyframes slideInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 2rem;
+            }
+            
+            .service-card {
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 600px;
+                padding: 2rem 0;
+            }
+
+            .hero-content {
+                padding: 0 1.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .btn {
+                padding: 0.875rem 1.75rem;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .services-section {
+                padding: 4rem 0;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .section-header {
+                margin-bottom: 3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .service-card {
+                height: 400px;
+            }
+
+            .service-front,
+            .service-back {
+                padding: 2rem 1.5rem;
+            }
+
+            .service-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 1.5rem;
+            }
+
+            .service-icon i {
+                font-size: 2rem;
+            }
+
+            .service-title {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .service-description {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .service-card {
+                height: 380px;
+            }
+
+            .service-front,
+            .service-back {
+                padding: 1.5rem;
+            }
+
+            .service-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .service-icon i {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --primary-dark: #047857;
+            --secondary: #f0fdf4;
+            --accent: #0ea5e9;
+            --accent-light: #38bdf8;
+            --accent-dark: #0284c7;
+            --text-primary: #14532d;
+            --text-secondary: #166534;
+            --text-light: #22c55e;
+            --white: #ffffff;
+            --dark: #052e16;
+            --border: #dcfce7;
+            --footer-bg: #052e16;
+            --footer-text: #dcfce7;
+            --footer-link: #10b981;
+            --footer-link-hover: #22c55e;
+            --footer-border: rgba(220, 252, 231, 0.1);
+            --shadow-sm: 0 1px 3px 0 rgb(5 150 105 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(5 150 105 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(5 150 105 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(5 150 105 / 0.1);
+            --gradient-1: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            --gradient-2: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            --gradient-footer: linear-gradient(135deg, #052e16 0%, #064e3b 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: relative;
+            background: var(--gradient-footer);
+            color: var(--footer-text);
+            padding: 5rem 0 2rem;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.03)' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .footer-wave {
+            position: absolute;
+            top: -3px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .footer-wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 55px;
+        }
+
+        .footer-wave .shape-fill {
+            fill: #FFFFFF;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .footer-column:nth-child(1) { animation-delay: 0.1s; }
+        .footer-column:nth-child(2) { animation-delay: 0.3s; }
+        .footer-column:nth-child(3) { animation-delay: 0.5s; }
+        .footer-column:nth-child(4) { animation-delay: 0.7s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .footer-logo:hover .footer-logo-icon {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.4);
+        }
+
+        .footer-logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--footer-text);
+        }
+
+        .footer-description {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            max-width: 300px;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--footer-text);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .footer-social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .footer-social-link:hover {
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-social-link:hover::before {
+            transform: scale(1);
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link-item {
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link-item:hover {
+            transform: translateX(5px);
+        }
+
+        .footer-link {
+            color: var(--footer-text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-link i {
+            font-size: 0.8rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-link:hover i {
+            transform: translateX(3px);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-contact-item:hover .footer-contact-icon {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .footer-contact-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-newsletter {
+            margin-top: 1.5rem;
+        }
+
+        .footer-newsletter-form {
+            display: flex;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-newsletter-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--footer-text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+        }
+
+        .footer-newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-newsletter-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            border: none;
+            outline: none;
+            background: var(--primary);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-newsletter-button:hover {
+            background: var(--primary-light);
+            transform: translateX(3px);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--footer-border);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            100% {
+                left: 100%;
+            }
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-link {
+            color: var(--footer-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-bottom-link:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-back-to-top {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease 1.2s forwards;
+        }
+
+        .footer-back-to-top:hover {
+            background: var(--primary-light);
+            transform: translateY(-5px);
+        }
+
+        /* Floating Elements Animation */
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-2 {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            right: 10%;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .floating-3 {
+            width: 70px;
+            height: 70px;
+            bottom: 15%;
+            left: 15%;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .floating-4 {
+            width: 120px;
+            height: 120px;
+            bottom: 10%;
+            right: 20%;
+            animation: float 14s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+            }
+
+            .footer-back-to-top {
+                right: 1rem;
+                bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer {
+                padding: 4rem 0 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-logo-text {
+                font-size: 1.5rem;
+            }
+
+            .footer-newsletter-form {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-newsletter-button {
+                position: static;
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Global Navbar Component with Embedded CSS and JavaScript -->
+<style>
+/* Global Navbar CSS */
+:root {
+    --primary: #22c55e;
+    --primary-dark: #16a34a;
+    --primary-light: #4ade80;
+    --primary-subtle: rgba(34, 197, 94, 0.1);
+    --text-primary: #333;
+    --text-secondary: #666;
+    --background: #fff;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --shadow-light: rgba(0, 0, 0, 0.05);
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 30px var(--shadow);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar:hover {
+    box-shadow: 0 8px 40px var(--shadow);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    height: 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 1s ease-out both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo:hover {
+    color: var(--primary-dark);
+    transform: scale(1.05);
+}
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    background: var(--primary);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+}
+
+.logo:hover .logo-icon {
+    background: var(--primary-dark);
+    transform: rotate(10deg);
+    box-shadow: 0 12px 30px rgba(34, 197, 94, 0.4);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    animation: fadeInLeft 1s ease-out 0.5s both;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+.nav-link:hover, .nav-link.active {
+    background: var(--primary-subtle);
+    color: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px var(--shadow-light);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 15px 50px var(--shadow);
+    padding: 1rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(10px);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    margin: 0.3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.dropdown-item:hover::before {
+    left: 100%;
+}
+
+.dropdown-item:hover {
+    background: var(--primary-subtle);
+    color: var(--primary-dark);
+    transform: translateX(8px);
+    box-shadow: 0 5px 15px var(--shadow-light);
+}
+
+.dropdown-arrow {
+    font-size: 0.8rem;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.social-media {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    animation: fadeInRight 1s ease-out 1s both;
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.social-link {
+    width: 45px;
+    height: 45px;
+    background: var(--primary-subtle);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.3rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+}
+
+.social-link:hover {
+    transform: translateY(-5px) scale(1.2) rotate(10deg);
+    box-shadow: 0 15px 30px var(--shadow);
+    color: white;
+}
+
+.social-link:hover::before {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.facebook:hover::before { background: #3b5998; }
+.linkedin:hover::before { background: #0077b5; }
+.instagram:hover::before { 
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+    animation: fadeInRight 1s ease-out 0.5s both;
+}
+
+.hamburger span {
+    width: 28px;
+    height: 3px;
+    background: var(--primary);
+    margin: 4px 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 3px;
+    transform-origin: center;
+}
+
+.hamburger:hover span {
+    background: var(--primary-dark);
+    box-shadow: 0 0 10px var(--shadow);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 6rem 2rem 2rem;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.mobile-menu.active {
+    left: 0;
+}
+
+.mobile-nav-item {
+    margin: 1.5rem 0;
+    transform: translateX(-50px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu.active .mobile-nav-item {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.mobile-menu.active .mobile-nav-item:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu.active .mobile-nav-item:nth-child(2) { transition-delay: 0.2s; }
+.mobile-menu.active .mobile-nav-item:nth-child(3) { transition-delay: 0.3s; }
+.mobile-menu.active .mobile-nav-item:nth-child(4) { transition-delay: 0.4s; }
+.mobile-menu.active .mobile-nav-item:nth-child(5) { transition-delay: 0.5s; }
+.mobile-menu.active .mobile-nav-item:nth-child(6) { transition-delay: 0.6s; }
+.mobile-menu.active .mobile-nav-item:nth-child(7) { transition-delay: 0.7s; }
+
+.mobile-nav-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: block;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.mobile-nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.mobile-nav-link:hover::before {
+    left: 100%;
+}
+
+.mobile-nav-link:hover {
+    background: var(--primary-subtle);
+    color: var(--primary-dark);
+    transform: translateX(15px);
+    box-shadow: 0 8px 25px var(--shadow-light);
+}
+
+.mobile-dropdown-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--primary-subtle);
+    border-radius: 15px;
+    margin: 0.5rem 0 0 1rem;
+}
+
+.mobile-dropdown-menu.active {
+    max-height: 400px;
+}
+
+.mobile-social {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu.active .mobile-social {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 0.8s;
+}
+
+/* Pulse animation for special elements */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.navbar:hover .logo-icon {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu,
+    .social-media {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-container {
+        padding: 0 1rem;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+    }
+
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    .logo-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .mobile-nav-link {
+        font-size: 1.2rem;
+    }
+}
+</style>
+
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            
+            <span style="color: #22c55e;">TGIS</span><span style="color: #00008B;"> Nepal</span>
+        </a>
+
+        <ul class="nav-menu" id="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="services.html" class="nav-link">
+                    Services
+                    <span class="dropdown-arrow">▼</span>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="it-services.html" class="dropdown-item">IT Services</a>
+                    <a href="survey-services.html" class="dropdown-item">Survey Services</a>
+                    <a href="agriculture-services.html" class="dropdown-item">Agriculture Services</a>
+                    <a href="civil-architecture.html" class="dropdown-item">Civil & Architecture Services</a>
+                    <a href="real-state.html" class="dropdown-item">Real Estate Services</a>
+                    <a href="machine-rental.html" class="dropdown-item">Machine Rental Services</a>
+                    <a href="training.html" class="dropdown-item">Training & Certificate</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+            </li>
+            <li class="nav-item">
+                <a href="careers.html" class="nav-link">Careers</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.html" class="nav-link">Contact</a>
+            </li>
+        </ul>
+
+        <div class="social-media">
+            <a href="#" class="social-link facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-nav-item">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+        </div>
+        <div class="mobile-nav-item">
+            <a href="about.html" class="mobile-nav-link">About</a>
+        </div>
+        <div class="mobile-nav-item">
+            <a href="services.html" class="mobile-nav-link" onclick="toggleMobileDropdown(event)">
+                Services ▼
+            </a>
+            <div class="mobile-dropdown-menu" id="mobile-dropdown">
+                <a href="it-services.html" class="mobile-nav-link">IT Services</a>
+                <a href="survey-services.html" class="mobile-nav-link">Survey Services</a>
+                <a href="agriculture-services.html" class="mobile-nav-link">Agriculture Services</a>
+                <a href="civil-architecture-services.html" class="mobile-nav-link">Civil & Architecture Services</a>
+                <a href="realstate-services.html" class="mobile-nav-link">Real Estate Services</a>
+                <a href="machine-rental-services.html" class="mobile-nav-link">Machine Rental Services</a>
+                <a href="training-certificate.html" class="mobile-nav-link">Training & Certificate</a>
+            </div>
+        </div>
+        <div class="mobile-nav-item">
+            <a href="portfolio.html" class="mobile-nav-link">Portfolio</a>
+        </div>
+        <div class="mobile-nav-item">
+            <a href="careers.html" class="mobile-nav-link">Careers</a>
+        </div>
+        <div class="mobile-nav-item">
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+        </div>
+        
+        <div class="mobile-social">
+            <a href="#" class="social-link facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// Global Navbar JavaScript Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Hamburger menu toggle with animations
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scrolling when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!link.textContent.includes('Services')) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const navbar = document.querySelector('.navbar');
+            const isClickInsideNav = navbar.contains(event.target);
+            
+            if (!isClickInsideNav && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+
+    // Mobile dropdown toggle
+    window.toggleMobileDropdown = function(event) {
+        event.preventDefault();
+        const dropdown = document.getElementById('mobile-dropdown');
+        if (dropdown) {
+            dropdown.classList.toggle('active');
+        }
+    };
+
+    // Enhanced hover effects for desktop nav items
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.05)';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Logo animation on click
+    const logo = document.querySelector('.logo');
+    if (logo) {
+        logo.addEventListener('click', function(e) {
+            // Only animate if clicking on the logo itself, not a link inside it
+            if (e.target === this || e.target.parentNode === this) {
+                this.style.transform = 'scale(0.9) rotate(360deg)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                }, 300);
+            }
+        });
+    }
+
+    // Social links animation
+    const socialLinks = document.querySelectorAll('.social-link');
+    socialLinks.forEach((link) => {
+        link.addEventListener('click', function(e) {
+            // Only animate if it's not a link to another page
+            if (this.getAttribute('href') === '#') {
+                e.preventDefault();
+                this.style.transform = 'scale(0.8) rotate(360deg)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                }, 400);
+            }
+        });
+    });
+
+    // Add shimmer effect to navbar on load
+    setTimeout(() => {
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            navbar.style.background = 'rgba(255, 255, 255, 0.15)';
+            setTimeout(() => {
+                navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+            }, 1000);
+        }
+    }, 2000);
+
+    // Add active class to current page nav link
+    const currentPage = window.location.pathname.split('/').pop();
+    const navLinks2 = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    
+    navLinks2.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+            link.classList.add('active');
+            link.style.fontWeight = '700';
+            link.style.color = 'var(--primary)';
+            link.style.background = 'var(--primary-subtle)';
+        }
+    });
+});
+</script>
+    <!-- Hero Section with Video Background -->
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="https://player.vimeo.com/external/372347019.sd.mp4?s=1ba3b9ff5dda96e4f2adad5f518d6fe51d47c5a4&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+            <!-- Fallback for browsers that don't support video -->
+        </video>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Innovative Agriculture Services</h1>
+            <p class="hero-subtitle">
+                Transform your farming operations with cutting-edge technology, sustainable practices, and expert guidance for maximum productivity and environmental stewardship.
+            </p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">
+                    <i class="fas fa-seedling"></i>
+                    Explore Our Services
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <i class="fas fa-phone"></i>
+                    Get Started Today
+                </a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-subtitle">Our Expertise</div>
+                <h2 class="section-title">Comprehensive Agriculture Solutions</h2>
+                <p class="section-description">
+                    We provide state-of-the-art agricultural services designed to optimize your farming operations, increase yields, and promote sustainable practices for a better future.
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Precision Farming -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-card-inner">
+                        <div class="service-front">
+                            <div class="service-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3 class="service-title">Precision Farming</h3>
+                            <p class="service-description">
+                                Advanced precision agriculture techniques using GPS, IoT sensors, and AI-powered analytics to optimize every aspect of your farming operation.
+                            </p>
+                            <button class="service-btn">Discover More</button>
+                        </div>
+                        <div class="service-back">
+                            <button class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <h3 class="service-title">Precision Farming Solutions</h3>
+                            <p class="service-description">
+                                Revolutionary farming technology that maximizes efficiency while minimizing environmental impact.
+                            </p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check-circle"></i> GPS-guided machinery and equipment</li>
+                                <li><i class="fas fa-check-circle"></i> Variable rate application systems</li>
+                                <li><i class="fas fa-check-circle"></i> Advanced yield mapping technology</li>
+                                <li><i class="fas fa-check-circle"></i> Comprehensive soil sampling & analysis</li>
+                                <li><i class="fas fa-check-circle"></i> AI-powered decision support systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop Monitoring -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-card-inner">
+                        <div class="service-front">
+                            <div class="service-icon">
+                                <i class="fas fa-satellite"></i>
+                            </div>
+                            <h3 class="service-title">Smart Crop Monitoring</h3>
+                            <p class="service-description">
+                                Real-time crop monitoring using satellite imagery, drone technology, and advanced sensors for proactive field management.
+                            </p>
+                            <button class="service-btn">Discover More</button>
+                        </div>
+                        <div class="service-back">
+                            <button class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <h3 class="service-title">Crop Monitoring Systems</h3>
+                            <p class="service-description">
+                                Monitor your entire operation with cutting-edge remote sensing and analytics technology.
+                            </p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check-circle"></i> High-resolution satellite imagery analysis</li>
+                                <li><i class="fas fa-check-circle"></i> Professional drone surveillance services</li>
+                                <li><i class="fas fa-check-circle"></i> Early disease and pest detection</li>
+                                <li><i class="fas fa-check-circle"></i> Real-time growth monitoring</li>
+                                <li><i class="fas fa-check-circle"></i> Predictive analytics and alerts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Irrigation Management -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-card-inner">
+                        <div class="service-front">
+                            <div class="service-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <h3 class="service-title">Smart Irrigation</h3>
+                            <p class="service-description">
+                                Intelligent irrigation systems that optimize water usage, reduce costs, and improve crop health through precision water management.
+                            </p>
+                            <button class="service-btn">Discover More</button>
+                        </div>
+                        <div class="service-back">
+                            <button class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <h3 class="service-title">Irrigation Management</h3>
+                            <p class="service-description">
+                                Sustainable water management solutions that conserve resources while maximizing crop yield.
+                            </p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check-circle"></i> Custom smart irrigation system design</li>
+                                <li><i class="fas fa-check-circle"></i> Advanced water usage optimization</li>
+                                <li><i class="fas fa-check-circle"></i> Real-time soil moisture monitoring</li>
+                                <li><i class="fas fa-check-circle"></i> Fully automated irrigation systems</li>
+                                <li><i class="fas fa-check-circle"></i> Water conservation strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soil Analysis -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-card-inner">
+                        <div class="service-front">
+                            <div class="service-icon">
+                                <i class="fas fa-microscope"></i>
+                            </div>
+                            <h3 class="service-title">Advanced Soil Analysis</h3>
+                            <p class="service-description">
+                                Comprehensive soil testing and analysis services using state-of-the-art laboratory techniques for optimal soil health management.
+                            </p>
+                            <button class="service-btn">Discover More</button>
+                        </div>
+                        <div class="service-back">
+                            <button class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <h3 class="service-title">Soil Analysis Services</h3>
+                            <p class="service-description">
+                                Unlock your soil's potential with detailed analysis and personalized improvement strategies.
+                            </p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check-circle"></i> Complete nutrient analysis</li>
+                                <li><i class="fas fa-check-circle"></i> pH and alkalinity testing</li>
+                                <li><i class="fas fa-check-circle"></i> Organic matter assessment</li>
+                                <li><i class="fas fa-check-circle"></i> Customized fertilizer recommendations</li>
+                                <li><i class="fas fa-check-circle"></i> Soil improvement action plans</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Farm Management Software -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-card-inner">
+                        <div class="service-front">
+                            <div class="service-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="service-title">Digital Farm Management</h3>
+                            <p class="service-description">
+                                Comprehensive farm management software solutions for record keeping, planning, analytics, and decision support systems.
+                            </p>
+                            <button class="service-btn">Discover More</button>
+                        </div>
+                        <div class="service-back">
+                            <button class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <h3 class="service-title">Farm Management Software</h3>
+                            <p class="service-description">
+                                Transform your farm operations with our comprehensive digital management platform.
+                            </p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check-circle"></i> Interactive field mapping software</li>
+                                <li><i class="fas fa-check-circle"></i> Advanced crop planning tools</li>
+                                <li><i class="fas fa-check-circle"></i> Financial tracking and budgeting</li>
+                                <li><i class="fas fa-check-circle"></i> Compliance and reporting tools</li>
+                                <li><i class="fas fa-check-circle"></i> Business intelligence and insights</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agricultural Consulting -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-card-inner">
+                        <div class="service-front">
+                            <div class="service-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="service-title">Expert Consulting</h3>
+                            <p class="service-description">
+                                Professional agricultural consulting services from certified experts to optimize operations, sustainability, and profitability.
+                            </p>
+                            <button class="service-btn">Discover More</button>
+                        </div>
+                        <div class="service-back">
+                            <button class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <h3 class="service-title">Agricultural Consulting</h3>
+                            <p class="service-description">
+                                Partner with our experienced consultants to achieve your agricultural goals and maximize ROI.
+                            </p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check-circle"></i> Comprehensive farm planning</li>
+                                <li><i class="fas fa-check-circle"></i> Sustainability best practices</li>
+                                <li><i class="fas fa-check-circle"></i> Technology adoption strategies</li>
+                                <li><i class="fas fa-check-circle"></i> Business development planning</li>
+                                <li><i class="fas fa-check-circle"></i> Risk management solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Service card flip functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(card => {
+                const discoverBtn = card.querySelector('.service-btn');
+                const closeBtn = card.querySelector('.close-btn');
+                
+                if (discoverBtn && closeBtn) {
+                    // Discover More button click
+                    discoverBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        card.classList.add('flipped');
+                        // Focus on close button for accessibility
+                        setTimeout(() => closeBtn.focus(), 400);
+                    });
+                    
+                    // Close button click
+                    closeBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        card.classList.remove('flipped');
+                        // Focus back on discover button for accessibility
+                        setTimeout(() => discoverBtn.focus(), 400);
+                    });
+
+                    // Click anywhere on the front card to flip
+                    card.addEventListener('click', function(e) {
+                        if (!card.classList.contains('flipped') && e.target.closest('.service-front')) {
+                            card.classList.add('flipped');
+                        }
+                    });
+
+                    // Keyboard accessibility
+                    card.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            if (!card.classList.contains('flipped')) {
+                                e.preventDefault();
+                                card.classList.add('flipped');
+                                setTimeout(() => closeBtn.focus(), 400);
+                            }
+                        }
+                        if (e.key === 'Escape' && card.classList.contains('flipped')) {
+                            card.classList.remove('flipped');
+                            setTimeout(() => discoverBtn.focus(), 400);
+                        }
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            const windowHeight = window.innerHeight;
+            const scrollTop = window.pageYOffset;
+            
+            elements.forEach((element, index) => {
+                const elementTop = element.offsetTop;
+                const elementHeight = element.offsetHeight;
+                const triggerPoint = 100;
+                
+                if (scrollTop + windowHeight >= elementTop + triggerPoint) {
+                    setTimeout(() => {
+                        element.classList.add('animated');
+                    }, index * 150); // Staggered animation
+                }
+            });
+        };
+
+        // Throttled scroll event for better performance
+        let ticking = false;
+        const handleScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    animateOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        // Initialize scroll animations
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Parallax effect for hero video (optional performance enhancement)
+        const heroVideo = document.querySelector('.hero-video');
+        if (heroVideo) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallax = scrolled * 0.5;
+                heroVideo.style.transform = `translateY(${parallax}px)`;
+            });
+        }
+
+        // Enhanced mobile touch interactions
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.classList.add('touch-hover');
+                });
+                
+                card.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.classList.remove('touch-hover');
+                    }, 300);
+                });
+            });
+        }
+
+        // Intersection Observer for better scroll animations
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animated');
+                        }, index * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all animate-on-scroll elements
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Performance optimization for video
+        window.addEventListener('load', () => {
+            const video = document.querySelector('.hero-video');
+            if (video) {
+                video.playbackRate = 0.8; // Slightly slower for cinematic effect
+            }
+        });
+
+        // Preload critical images for better performance
+        const preloadImages = () => {
+            const imageUrls = [
+                // Add any critical images here
+            ];
+            
+            imageUrls.forEach(url => {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.as = 'image';
+                link.href = url;
+                document.head.appendChild(link);
+            });
+        };
+
+        // Initialize preloading
+        preloadImages();
+
+        // Add loading states for better UX
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        // Error handling for video
+        const video = document.querySelector('.hero-video');
+        if (video) {
+            video.addEventListener('error', () => {
+                // Fallback to background image if video fails
+                const heroSection = document.querySelector('.hero');
+                heroSection.style.backgroundImage = `url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1973&q=80')`;
+                heroSection.style.backgroundSize = 'cover';
+                heroSection.style.backgroundPosition = 'center';
+                video.style.display = 'none';
+            });
+        }
+    </script>
+<footer class="footer">
+        <div class="footer-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">T</div>
+                        <div class="footer-logo-text">TGIS</div>
+                    </div>
+                    <p class="footer-description">
+                        TGIS provides innovative solutions in IT, surveying, agriculture, and more. We're committed to excellence and sustainable development through cutting-edge technology.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-heading">Our Services</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> IT Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Survey Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Agriculture Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Civil & Architecture</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Real Estate Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Machine Rental</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Training & Certificate</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Home</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> About Us</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Portfolio</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Careers</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Contact</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Blog</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            123 Business Avenue, Tech Park, Kathmandu, Nepal
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            +977 1 4123456<br>
+                            +977 9801234567
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            info@tgis.com<br>
+                            support@tgis.com
+                        </div>
+                    </div>
+                    
+                    <div class="footer-newsletter">
+                        <h4 class="footer-heading">Newsletter</h4>
+                        <p class="footer-contact-text">Subscribe to our newsletter for updates</p>
+                        <form class="footer-newsletter-form">
+                            <input type="email" class="footer-newsletter-input" placeholder="Your Email Address">
+                            <button type="submit" class="footer-newsletter-button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2023 TGIS. All Rights Reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-bottom-link">Privacy Policy</a>
+                    <a href="#" class="footer-bottom-link">Terms of Service</a>
+                    <a href="#" class="footer-bottom-link">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="floating-element floating-1"></div>
+        <div class="floating-element floating-2"></div>
+        <div class="floating-element floating-3"></div>
+        <div class="floating-element floating-4"></div>
+        
+        <div class="footer-back-to-top" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </footer>
+<script>
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements when they come into view
+            const animateOnScroll = function() {
+                const footerColumns = document.querySelectorAll('.footer-column');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+                
+                footerColumns.forEach(column => {
+                    observer.observe(column);
+                });
+            };
+            
+            // Initialize animations
+            animateOnScroll();
+            
+            // Newsletter form submission (prevent default for demo)
+            const newsletterForm = document.querySelector('.footer-newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const input = this.querySelector('.footer-newsletter-input');
+                    if (input.value.trim() !== '') {
+                        alert('Thank you for subscribing to our newsletter!');
+                        input.value = '';
+                    }
+                });
+            }
+            
+            // Add hover effect to social links
+            const socialLinks = document.querySelectorAll('.footer-social-link');
+            socialLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) rotate(10deg)';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+            
+            // Add magnetic effect to back to top button
+            const backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                backToTop.addEventListener('mousemove', function(e) {
+                    const position = this.getBoundingClientRect();
+                    const x = e.clientX - position.left - position.width / 2;
+                    const y = e.clientY - position.top - position.height / 2;
+                    
+                    this.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                
+                backToTop.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+

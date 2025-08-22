@@ -1,0 +1,776 @@
+<!-- Global Footer Component with Embedded CSS and JavaScript -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGIS Footer Component</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --primary-dark: #047857;
+            --secondary: #f0fdf4;
+            --accent: #0ea5e9;
+            --accent-light: #38bdf8;
+            --accent-dark: #0284c7;
+            --text-primary: #14532d;
+            --text-secondary: #166534;
+            --text-light: #22c55e;
+            --white: #ffffff;
+            --dark: #052e16;
+            --border: #dcfce7;
+            --footer-bg: #052e16;
+            --footer-text: #dcfce7;
+            --footer-link: #10b981;
+            --footer-link-hover: #22c55e;
+            --footer-border: rgba(220, 252, 231, 0.1);
+            --shadow-sm: 0 1px 3px 0 rgb(5 150 105 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(5 150 105 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(5 150 105 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(5 150 105 / 0.1);
+            --gradient-1: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            --gradient-2: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            --gradient-footer: linear-gradient(135deg, #052e16 0%, #064e3b 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: relative;
+            background: var(--gradient-footer);
+            color: var(--footer-text);
+            padding: 5rem 0 2rem;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.03)' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .footer-wave {
+            position: absolute;
+            top: -3px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .footer-wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 55px;
+        }
+
+        .footer-wave .shape-fill {
+            fill: #FFFFFF;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .footer-column:nth-child(1) { animation-delay: 0.1s; }
+        .footer-column:nth-child(2) { animation-delay: 0.3s; }
+        .footer-column:nth-child(3) { animation-delay: 0.5s; }
+        .footer-column:nth-child(4) { animation-delay: 0.7s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .footer-logo:hover .footer-logo-icon {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.4);
+        }
+
+        .footer-logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--footer-text);
+        }
+
+        .footer-description {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            max-width: 300px;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--footer-text);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .footer-social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .footer-social-link:hover {
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-social-link:hover::before {
+            transform: scale(1);
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link-item {
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link-item:hover {
+            transform: translateX(5px);
+        }
+
+        .footer-link {
+            color: var(--footer-text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-link i {
+            font-size: 0.8rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-link:hover i {
+            transform: translateX(3px);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-contact-item:hover .footer-contact-icon {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .footer-contact-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-newsletter {
+            margin-top: 1.5rem;
+        }
+
+        .footer-newsletter-form {
+            display: flex;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-newsletter-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--footer-text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+        }
+
+        .footer-newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-newsletter-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            border: none;
+            outline: none;
+            background: var(--primary);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-newsletter-button:hover {
+            background: var(--primary-light);
+            transform: translateX(3px);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--footer-border);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            100% {
+                left: 100%;
+            }
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-link {
+            color: var(--footer-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-bottom-link:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-back-to-top {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease 1.2s forwards;
+        }
+
+        .footer-back-to-top:hover {
+            background: var(--primary-light);
+            transform: translateY(-5px);
+        }
+
+        /* Floating Elements Animation */
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-2 {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            right: 10%;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .floating-3 {
+            width: 70px;
+            height: 70px;
+            bottom: 15%;
+            left: 15%;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .floating-4 {
+            width: 120px;
+            height: 120px;
+            bottom: 10%;
+            right: 20%;
+            animation: float 14s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+            }
+
+            .footer-back-to-top {
+                right: 1rem;
+                bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer {
+                padding: 4rem 0 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-logo-text {
+                font-size: 1.5rem;
+            }
+
+            .footer-newsletter-form {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-newsletter-button {
+                position: static;
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <footer class="footer">
+        <div class="footer-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">T</div>
+                        <div class="footer-logo-text"><span style="color: #22c55e;">TGIS</span><span style="color: #00008B;"> Nepal</span></div>
+                    </div>
+                    <p class="footer-description">
+                        TGIS provides innovative solutions in IT, surveying, agriculture, and more. We're committed to excellence and sustainable development through cutting-edge technology.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-heading">Our Services</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link-item">
+                            <a href="it-services.html" class="footer-link"><i class="fas fa-chevron-right"></i> IT Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="survey-services.html" class="footer-link"><i class="fas fa-chevron-right"></i> Survey Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="agriculture-services.html" class="footer-link"><i class="fas fa-chevron-right"></i> Agriculture Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="civil-architecture.html" class="footer-link"><i class="fas fa-chevron-right"></i> Civil & Architecture</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="real-state.html" class="footer-link"><i class="fas fa-chevron-right"></i> Real Estate Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="machine-rental.html" class="footer-link"><i class="fas fa-chevron-right"></i> Machine Rental</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="training.html" class="footer-link"><i class="fas fa-chevron-right"></i> Training & Certificate</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link-item">
+                            <a href="index.html" class="footer-link"><i class="fas fa-chevron-right"></i> Home</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="about.html" class="footer-link"><i class="fas fa-chevron-right"></i> About Us</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="services.html" class="footer-link"><i class="fas fa-chevron-right"></i> Services</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="portfolio.html" class="footer-link"><i class="fas fa-chevron-right"></i> Portfolio</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="careers.html" class="footer-link"><i class="fas fa-chevron-right"></i> Careers</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="contact.html" class="footer-link"><i class="fas fa-chevron-right"></i> Contact</a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Blog</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            123 Business Avenue, Tech Park, Kathmandu, Nepal
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            +977 1 4123456<br>
+                            +977 9801234567
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            info@tgis.com<br>
+                            support@tgis.com
+                        </div>
+                    </div>
+                    
+                    <div class="footer-newsletter">
+                        <h4 class="footer-heading">Newsletter</h4>
+                        <p class="footer-contact-text">Subscribe to our newsletter for updates</p>
+                        <form class="footer-newsletter-form">
+                            <input type="email" class="footer-newsletter-input" placeholder="Your Email Address">
+                            <button type="submit" class="footer-newsletter-button">Subscribe <i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2023 TGIS. All Rights Reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-bottom-link">Privacy Policy</a>
+                    <a href="#" class="footer-bottom-link">Terms of Service</a>
+                    <a href="#" class="footer-bottom-link">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="floating-element floating-1"></div>
+        <div class="floating-element floating-2"></div>
+        <div class="floating-element floating-3"></div>
+        <div class="floating-element floating-4"></div>
+        
+        <div class="footer-back-to-top" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </footer>
+
+    <script>
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements when they come into view
+            const animateOnScroll = function() {
+                const footerColumns = document.querySelectorAll('.footer-column');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+                
+                footerColumns.forEach(column => {
+                    observer.observe(column);
+                });
+            };
+            
+            // Initialize animations
+            animateOnScroll();
+            
+            // Newsletter form submission (prevent default for demo)
+            const newsletterForm = document.querySelector('.footer-newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const input = this.querySelector('.footer-newsletter-input');
+                    if (input.value.trim() !== '') {
+                        alert('Thank you for subscribing to our newsletter!');
+                        input.value = '';
+                    }
+                });
+            }
+            
+            // Add hover effect to social links
+            const socialLinks = document.querySelectorAll('.footer-social-link');
+            socialLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) rotate(10deg)';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+            
+            // Add magnetic effect to back to top button
+            const backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                backToTop.addEventListener('mousemove', function(e) {
+                    const position = this.getBoundingClientRect();
+                    const x = e.clientX - position.left - position.width / 2;
+                    const y = e.clientY - position.top - position.height / 2;
+                    
+                    this.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                
+                backToTop.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

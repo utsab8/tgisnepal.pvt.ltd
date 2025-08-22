@@ -1,0 +1,189 @@
+/* Responsive CSS for TGIS Website */
+
+/* Base responsive styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Mobile Menu Styles */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    z-index: 1001;
+}
+
+/* Large Screens (992px and below) */
+@media (max-width: 992px) {
+    .nav-menu {
+        gap: 1.5rem;
+    }
+    
+    .hero-title, .section-title, h1 {
+        font-size: calc(2.5rem + 1vw) !important;
+    }
+    
+    .container, .section-container {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }
+    
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Medium Screens (768px and below) */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        right: -100%;
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding: 2rem 0;
+        gap: 2rem;
+        z-index: 1000;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .hero-title, .section-title, h1 {
+        font-size: calc(2rem + 1vw) !important;
+    }
+    
+    .hero-description, .section-description, p {
+        font-size: 1rem !important;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .grid-container {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    .flex-container {
+        flex-direction: column !important;
+    }
+    
+    .col-md-6 {
+        width: 100% !important;
+        margin-bottom: 2rem !important;
+    }
+}
+
+/* Small Screens (576px and below) */
+@media (max-width: 576px) {
+    .nav-container {
+        padding: 0 1rem !important;
+    }
+    
+    .logo-icon {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.3rem !important;
+    }
+    
+    .logo span, .logo-text-tgis, .logo-text-nepal {
+        font-size: 1.5rem !important;
+    }
+    
+    .hero-title, .section-title, h1 {
+        font-size: calc(1.8rem + 1vw) !important;
+    }
+    
+    .hero {
+        height: 70vh !important;
+        padding: 0 1rem !important;
+    }
+    
+    .section-padding {
+        padding: 3rem 1rem !important;
+    }
+    
+    .container, .section-container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .footer {
+        padding: 3rem 1rem !important;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .btn {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 1rem !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* JavaScript for Mobile Menu */
+/* Add this script to your HTML files:
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                
+                // Change hamburger icon
+                const icon = hamburger.querySelector('i');
+                if (icon) {
+                    if (navMenu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+            
+            // Close menu when clicking on a nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    const icon = hamburger.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+        }
+    });
+</script>
+*/

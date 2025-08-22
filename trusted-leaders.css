@@ -1,0 +1,317 @@
+/* Trusted by Industry Leaders Section Styles */
+.trusted-leaders {
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    padding: 60px 0;
+}
+
+.section-title-underline {
+    height: 4px;
+    width: 80px;
+    background-color: #28a745;
+    margin: 15px auto 30px;
+}
+
+/* Logo Slider Animation */
+.logo-slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin: 40px 0;
+    padding: 20px 0;
+}
+
+.logo-track {
+    display: flex;
+    animation: slide 20s linear infinite;
+    width: max-content;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.logo-slider-container:hover .logo-track {
+    animation-play-state: paused;
+}
+
+.logo-slide {
+    flex: 0 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-slide img {
+    height: 80px;
+    max-width: 160px;
+    object-fit: contain;
+    opacity: 1;
+    border: 2px solid #22c55e;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.logo-slide:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border-color: #1a9e4b;
+}
+
+.logo-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.logo-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.logo-image {
+    margin-bottom: 15px;
+}
+
+.logo-image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #28a745;
+}
+
+.logo-container h4 {
+    margin: 10px 0 5px;
+    color: #333;
+    font-size: 18px;
+}
+
+.partner-category {
+    display: block;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.trusted-leaders {
+    position: relative;
+    overflow: hidden;
+}
+
+.trusted-leaders::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(255, 255, 255, 0) 50%);
+    z-index: 0;
+}
+
+.section-title-underline {
+    height: 4px;
+    width: 80px;
+    background: var(--primary);
+    margin: 15px auto 25px;
+    border-radius: 2px;
+}
+
+.trusted-logos {
+    margin: 50px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.logo-slider {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.logo-item {
+    flex: 0 0 calc(33.333% - 30px);
+    max-width: calc(33.333% - 30px);
+    margin-bottom: 30px;
+    transition: all 0.4s ease;
+}
+
+@media (min-width: 768px) {
+    .logo-item {
+        flex: 0 0 calc(16.666% - 30px);
+        max-width: calc(16.666% - 30px);
+    }
+}
+
+.logo-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    padding: 30px 20px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.logo-container:hover::before {
+    transform: scaleX(1);
+}
+
+.logo-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.2);
+}
+
+.logo-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.4s ease;
+}
+
+.logo-icon i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    transition: all 0.4s ease;
+}
+
+.logo-container:hover .logo-icon {
+    background: var(--primary);
+    transform: scale(1.1);
+}
+
+.logo-container:hover .logo-icon i {
+    color: white;
+}
+
+.logo-container h4 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.partner-category {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    display: block;
+    opacity: 0.8;
+}
+
+.testimonials-container {
+    margin-top: 60px;
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-highlight {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+    position: relative;
+    z-index: 1;
+    border-left: 5px solid var(--primary);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.4s ease;
+}
+
+.testimonial-highlight:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(34, 197, 94, 0.15);
+}
+
+.quote-icon {
+    position: absolute;
+    top: -20px;
+    left: 40px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+}
+
+.testimonial-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    font-style: italic;
+    margin-bottom: 25px;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.author-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 1.8rem;
+}
+
+.author-info h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.author-info p {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
