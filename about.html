@@ -15,6 +15,40 @@
     <link rel="stylesheet" href="responsive.css">
     
     <style>
+
+        html, body {
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  width: 100%;
+}
+
+/* Ensure video and images don't overflow */
+.hero-video,
+.hero-section video,
+.hero-section img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Fix container overflow on mobile */
+.container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+/* For grids that may cause overflow */
+.photo-grid, 
+.about-container, 
+.mission-vision-grid, 
+.team-grid, 
+.values-grid {
+  overflow-x: hidden;
+}
+
         * {
             margin: 0;
             padding: 0;
@@ -756,7 +790,7 @@
         }
 
         .mobile-dropdown-menu.active {
-            max-height: 400px;
+            max-height: none;
         }
 
         .mobile-social {
@@ -1780,10 +1814,10 @@
                 <a href="it-services.html" class="mobile-nav-link">IT Services</a>
                 <a href="survey-services.html" class="mobile-nav-link">Survey Services</a>
                 <a href="agriculture-services.html" class="mobile-nav-link">Agriculture Services</a>
-                <a href="civil-architecture-services.html" class="mobile-nav-link">Civil & Architecture Services</a>
-                <a href="realstate-services.html" class="mobile-nav-link">Real Estate Services</a>
-                <a href="machine-rental-services.html" class="mobile-nav-link">Machine Rental Services</a>
-                <a href="training-certificate.html" class="mobile-nav-link">Training & Certificate</a>
+                <a href="civil-architecture.html" class="mobile-nav-link">Civil & Architecture Services</a>
+                <a href="real-state.html" class="mobile-nav-link">Real Estate Services</a>
+                <a href="machine-rental.html" class="mobile-nav-link">Machine Rental Services</a>
+                <a href="training.html" class="mobile-nav-link">Training & Certificate</a>
             </div>
         </div>
         <div class="mobile-nav-item">
@@ -1807,7 +1841,7 @@
     <!-- Hero Section with Video Background -->
     <section class="hero-section">
         <video class="hero-video" autoplay muted loop playsinline>
-            <source src="./images/background video.mp4" type="video/mp4">
+            <source src="./images/background video about .mp4" type="video/mp4">
             <!-- Fallback for browsers that don't support video -->
         </video>
         <div class="hero-overlay"></div>

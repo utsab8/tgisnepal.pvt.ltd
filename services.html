@@ -1712,7 +1712,7 @@
 }
 
 .mobile-dropdown-menu.active {
-    max-height: 400px;
+    max-height: none;
 }
 
 .mobile-social {
@@ -1945,7 +1945,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const logo = document.querySelector('.logo');
     if (logo) {
         logo.addEventListener('click', function(e) {
-            // Only animate if clicking on the logo itself, not a link inside it
             if (e.target === this || e.target.parentNode === this) {
                 this.style.transform = 'scale(0.9) rotate(360deg)';
                 setTimeout(() => {
@@ -1959,7 +1958,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const socialLinks = document.querySelectorAll('.social-link');
     socialLinks.forEach((link) => {
         link.addEventListener('click', function(e) {
-            // Only animate if it's not a link to another page
             if (this.getAttribute('href') === '#') {
                 e.preventDefault();
                 this.style.transform = 'scale(0.8) rotate(360deg)';
@@ -1985,21 +1983,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentPage = window.location.pathname.split('/').pop();
     const navLinks2 = document.querySelectorAll('.nav-link, .mobile-nav-link');
     
-    navLinks2.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-            link.classList.add('active');
-            link.style.fontWeight = '700';
-            link.style.color = 'var(--primary)';
-            link.style.background = 'var(--primary-subtle)';
-        }
-    });
+    if (navLinks2.length > 0) {
+        navLinks2.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+                link.classList.add('active');
+                link.style.fontWeight = '700';
+                link.style.color = 'var(--primary)';
+                link.style.background = 'var(--primary-subtle)';
+            }
+        });
+    }
 });
 </script>
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-    </div>
+
+    
 
     <!-- Hero Section with Video Background -->
     <section class="hero">
@@ -2059,21 +2057,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <div class="services-grid">
                 <!-- Survey Services -->
-                <div class="service-card" tabindex="0">
-                    <div class="service-header" style="background-image: url('images/3.jpg'); background-size: cover; background-position: center; height: 200px; position: relative;">
-                        <div class="service-badge">Popular</div>
-                    </div>
-                    <div class="service-content">
-                        <h3>Survey Services</h3>
-                        <p class="service-description">Professional land surveying, topographic mapping, and boundary determination with state-of-the-art equipment and certified professionals.</p>
-                        
-                        
-                        
-                        <a href="survey-services.html" class="service-link">
-                            Learn More <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- Survey Services -->
+    <div class="service-card">
+        <div class="service-header" style="background-image: url('images/3.jpg'); background-size: cover; background-position: center;">
+            <div class="service-badge">Popular</div>
+        </div>
+        <div class="service-content">
+            <h3>Survey Services</h3>
+            <p class="service-description">
+                Professional land surveying, topographic mapping, and boundary determination with state-of-the-art equipment and certified professionals.
+            </p>
+            <!-- ✅ Correct Link -->
+            <a href="survey-services.html" class="service-link">
+                Learn More <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
 
                 <!-- IT Services -->
                 <div class="service-card" tabindex="0">
@@ -2239,13 +2238,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </section>
 
     <script>
-        // Loading overlay
-        window.addEventListener('load', function() {
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            setTimeout(() => {
-                loadingOverlay.classList.add('hidden');
-            }, 1500);
-        });
+        
 
         // Stats Toggle Functionality
         const statsToggle = document.getElementById('statsToggle');
